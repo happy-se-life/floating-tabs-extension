@@ -1,0 +1,25 @@
+/* styles.css */
+#my-tab-menu {
+    font-family: sans-serif !important;
+    font-size: 11px !important;
+    color: #000 !important;
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15) !important;
+    padding: 5px 0 !important;
+    z-index: 10000 !important;
+    position: absolute !important;
+  }
+  #my-tab-menu div {
+    font-size: 11px !important;
+    color: #000 !important;
+    padding: 5px 10px !important;
+    cursor: pointer !important;
+  }
+  #my-tab-menu div:hover {
+    background: #eee !important;
+  }
+  /* Added: Force font size for all child elements */
+  #my-tab-menu * {
+    font-size: 11px !important;
+  }

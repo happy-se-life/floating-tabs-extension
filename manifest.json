@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Floating Tabs",
+    "version": "1.0",
+    "description": "Displays a floating menu of currently open tabs.",
+    "permissions": ["tabs", "scripting", "activeTab"],
+    "host_permissions": ["<all_urls>"],
+    "action": {
+      "default_title": "Show Tabs"
+    },
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content_script.js"],
+        "css": ["styles.css"]
+      }
+    ]
+  }
