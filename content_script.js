@@ -88,9 +88,10 @@ function showContextMenu(position, tabs) {
   menu.id = "my-tab-menu";
   menu.style.position = "absolute";
   menu.style.zIndex = 10000;
-  menu.style.background = "#fff";
-  menu.style.border = "1px solid #ccc";
-  menu.style.boxShadow = "0 2px 5px rgba(0,0,0,0.15)";
+  menu.style.background = "#333"; // 背景を黒っぽく
+  menu.style.color = "#fff"; // 文字色を明るく
+  menu.style.border = "1px solid #444"; // 枠の色をダークに
+  menu.style.boxShadow = "0 2px 5px rgba(0,0,0,0.5)"; // 影をダークに
   menu.style.padding = "5px 0";
   menu.style.fontFamily = "sans-serif";
   menu.style.fontSize = "11px";
@@ -107,6 +108,7 @@ function showContextMenu(position, tabs) {
     item.style.display = "flex";
     item.style.alignItems = "center";
     item.style.fontSize = "11px";
+    item.style.color = "#fff"; // 文字色を明るく
     
     // Add favicon
     if (tab.favIconUrl) {
@@ -133,6 +135,7 @@ function showContextMenu(position, tabs) {
     title.style.overflow = "hidden";
     title.style.textOverflow = "ellipsis";
     title.style.fontSize = "11px";
+    title.style.color = "#fff"; // 文字色を明るく
     item.appendChild(title);
 
     // Send tab switch request on click
@@ -144,10 +147,10 @@ function showContextMenu(position, tabs) {
 
     // Change background color on mouseover/out
     item.addEventListener("mouseover", () => {
-      item.style.background = "#eee";
+      item.style.background = "#555"; // ホバー時の背景を少し明るく
     });
     item.addEventListener("mouseout", () => {
-      item.style.background = "#fff";
+      item.style.background = "#333"; // 元の背景色に戻す
     });
 
     menu.appendChild(item);

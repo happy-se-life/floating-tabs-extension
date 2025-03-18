@@ -1,25 +1,25 @@
 /* styles.css */
-#my-tab-menu {
+body #my-tab-menu {
     font-family: sans-serif !important;
     font-size: 11px !important;
-    color: #000 !important;
-    background: #fff !important;
-    border: 1px solid #ccc !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15) !important;
+    color: #fff !important; /* 文字色を明るく */
+    background: #333 !important; /* 背景を黒っぽく */
+    border: 1px solid #444 !important; /* 枠の色をダークに */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5) !important; /* 影をダークに */
     padding: 5px 0 !important;
     z-index: 10000 !important;
     position: absolute !important;
-  }
-  #my-tab-menu div {
+}
+body #my-tab-menu div {
     font-size: 11px !important;
-    color: #000 !important;
+    color: #fff !important; /* 文字色を明るく */
     padding: 5px 10px !important;
     cursor: pointer !important;
-  }
-  #my-tab-menu div:hover {
-    background: #eee !important;
-  }
-  /* Added: Force font size for all child elements */
-  #my-tab-menu * {
+}
+body #my-tab-menu div:hover {
+    background: #555 !important; /* ホバー時の背景を少し明るく */
+}
+/* Added: Force font size for all child elements */
+body #my-tab-menu * {
     font-size: 11px !important;
-  }
+}
