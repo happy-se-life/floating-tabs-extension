@@ -87,8 +87,6 @@ function showContextMenu(position, tabs) {
   const menu = document.createElement("div");
   menu.id = "my-tab-menu";
   menu.style.position = "absolute";
-  menu.style.left = position.x + "px";
-  menu.style.top = position.y + "px";
   menu.style.zIndex = 10000;
   menu.style.background = "#fff";
   menu.style.border = "1px solid #ccc";
@@ -154,6 +152,32 @@ function showContextMenu(position, tabs) {
 
     menu.appendChild(item);
   });
+
+  // 画面のサイズを取得
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  
+  // メニューのサイズを取得
+  const menuWidth = menu.offsetWidth;
+  const menuHeight = menu.offsetHeight;
+  
+  // 位置の計算
+  let menuX = position.x;
+  let menuY = position.y;
+  
+  // 右端ではみ出す場合は左に表示
+  if (menuX + menuWidth > viewportWidth) {
+    menuX = menuX - menuWidth;
+  }
+  
+  // 下端ではみ出す場合は上に表示
+  if (menuY + menuHeight > viewportHeight) {
+    menuY = menuY - menuHeight;
+  }
+  
+  // 計算した位置を設定
+  menu.style.left = menuX + "px";
+  menu.style.top = menuY + "px";
 
   // Hide menu when clicking outside
   document.addEventListener("click", removeContextMenu);
