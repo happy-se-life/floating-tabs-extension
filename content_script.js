@@ -168,14 +168,23 @@ function showContextMenu(position, tabs) {
   let menuX = position.x;
   let menuY = position.y;
   
+  // スクロール位置を考慮
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+  
   // 右端ではみ出す場合は左に表示
-  if (menuX + menuWidth > viewportWidth) {
+  if (menuX + menuWidth > viewportWidth + scrollX) {
     menuX = menuX - menuWidth;
   }
   
   // 下端ではみ出す場合は上に表示
-  if (menuY + menuHeight > viewportHeight) {
+  if (menuY + menuHeight > viewportHeight + scrollY) {
     menuY = menuY - menuHeight;
+  }
+  
+  // 上端ではみ出す場合は下に表示
+  if (menuY < scrollY) {
+    menuY = position.y + menuHeight;
   }
   
   // 計算した位置を設定
