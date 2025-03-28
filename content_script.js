@@ -164,7 +164,7 @@ function showContextMenu(position, tabs) {
   const menuWidth = menu.offsetWidth;
   const menuHeight = menu.offsetHeight;
   
-  // 位置の計算
+  // 位置の計算（初期はマウスの位置）
   let menuX = position.x;
   let menuY = position.y;
   
@@ -172,20 +172,19 @@ function showContextMenu(position, tabs) {
   const scrollX = window.scrollX;
   const scrollY = window.scrollY;
   
-  // 右端ではみ出す場合は左に表示
-  if (menuX + menuWidth > viewportWidth + scrollX) {
+  // 横方向の調整:
+  // メニューの横幅が画面の幅以下の場合のみ、右端にはみ出すとき左側に表示
+  if (menuWidth <= viewportWidth && menuX + menuWidth > viewportWidth + scrollX) {
     menuX = menuX - menuWidth;
   }
+  // メニューの横幅が画面の幅より大きい場合は、常に右方向にそのまま表示（menuX = position.x のまま）
   
-  // 下端ではみ出す場合は上に表示
-  if (menuY + menuHeight > viewportHeight + scrollY) {
+  // 縦方向の調整:
+  // メニューの高さが画面の高さ以下の場合のみ、下端ではみ出すとき上に表示
+  if (menuHeight <= viewportHeight && menuY + menuHeight > viewportHeight + scrollY) {
     menuY = menuY - menuHeight;
   }
-  
-  // 上端ではみ出す場合は下に表示
-  if (menuY < scrollY) {
-    menuY = position.y + menuHeight;
-  }
+  // メニューの高さが画面の高さより大きい場合は、常に下方向にそのまま表示（menuY = position.y のまま）
   
   // 計算した位置を設定
   menu.style.left = menuX + "px";
