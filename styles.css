@@ -23,3 +23,55 @@ body #my-tab-menu div:hover {
 body #my-tab-menu * {
     font-size: 11px !important;
 }
+
+@media (prefers-color-scheme: dark) {
+    body #my-tab-menu {
+        font-family: sans-serif !important;
+        font-size: 11px !important;
+        color: #fff !important;
+        background: #333 !important;
+        border: 1px solid #444 !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.5) !important;
+        padding: 5px 0 !important;
+        z-index: 10000 !important;
+        position: absolute !important;
+    }
+    body #my-tab-menu div {
+        font-size: 11px !important;
+        color: #fff !important;
+        padding: 5px 10px !important;
+        cursor: pointer !important;
+    }
+    body #my-tab-menu div:hover {
+        background: #555 !important;
+    }
+    body #my-tab-menu * {
+        font-size: 11px !important;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body #my-tab-menu {
+        font-family: sans-serif !important;
+        font-size: 11px !important;
+        color: #000 !important;
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15) !important;
+        padding: 5px 0 !important;
+        z-index: 10000 !important;
+        position: absolute !important;
+    }
+    body #my-tab-menu div {
+        font-size: 11px !important;
+        color: #000 !important;
+        padding: 5px 10px !important;
+        cursor: pointer !important;
+    }
+    body #my-tab-menu div:hover {
+        background: #eee !important;
+    }
+    body #my-tab-menu * {
+        font-size: 11px !important;
+    }
+}

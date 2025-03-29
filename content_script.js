@@ -78,20 +78,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true; // Return true for asynchronous response
 });
 
-// Generate and display context menu (list)
+// Updated showContextMenu with dynamic theme colors
 function showContextMenu(position, tabs) {
   // Remove existing menu if any
   removeContextMenu();
+
+  // Determine theme colors based on prefers-color-scheme
+  const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const bgColor     = darkMode ? "#333" : "#fff";
+  const textColor   = darkMode ? "#fff" : "#000";
+  const borderColor = darkMode ? "1px solid #444" : "1px solid #ccc";
+  const boxShadow   = darkMode ? "0 2px 5px rgba(0,0,0,0.5)" : "0 2px 5px rgba(0,0,0,0.15)";
+  const hoverColor  = darkMode ? "#555" : "#eee";
 
   // Create menu container
   const menu = document.createElement("div");
   menu.id = "my-tab-menu";
   menu.style.position = "absolute";
   menu.style.zIndex = 10000;
-  menu.style.background = "#333"; // 背景を黒っぽく
-  menu.style.color = "#fff"; // 文字色を明るく
-  menu.style.border = "1px solid #444"; // 枠の色をダークに
-  menu.style.boxShadow = "0 2px 5px rgba(0,0,0,0.5)"; // 影をダークに
+  menu.style.background = bgColor;
+  menu.style.color = textColor;
+  menu.style.border = borderColor;
+  menu.style.boxShadow = boxShadow;
   menu.style.padding = "5px 0";
   menu.style.fontFamily = "sans-serif";
   menu.style.fontSize = "11px";
@@ -108,7 +116,7 @@ function showContextMenu(position, tabs) {
     item.style.display = "flex";
     item.style.alignItems = "center";
     item.style.fontSize = "11px";
-    item.style.color = "#fff"; // 文字色を明るく
+    item.style.color = textColor;
     
     // Add favicon
     if (tab.favIconUrl) {
@@ -128,65 +136,48 @@ function showContextMenu(position, tabs) {
       item.appendChild(placeholder);
     }
     
-    // Add title
+    // Add title text
     const title = document.createElement("span");
     title.textContent = tab.title;
     title.style.whiteSpace = "nowrap";
     title.style.overflow = "hidden";
     title.style.textOverflow = "ellipsis";
     title.style.fontSize = "11px";
-    title.style.color = "#fff"; // 文字色を明るく
+    title.style.color = textColor;
     item.appendChild(title);
-
+    
     // Send tab switch request on click
     item.addEventListener("click", (e) => {
       e.stopPropagation(); // Prevent event propagation for clicks outside menu
       chrome.runtime.sendMessage({ action: "activateTab", tabId: tab.id });
       removeContextMenu();
     });
-
-    // Change background color on mouseover/out
-    item.addEventListener("mouseover", () => {
-      item.style.background = "#555"; // ホバー時の背景を少し明るく
-    });
-    item.addEventListener("mouseout", () => {
-      item.style.background = "#333"; // 元の背景色に戻す
-    });
-
+    
+    // Change background color on mouse events
+    item.addEventListener("mouseover", () => { item.style.background = hoverColor; });
+    item.addEventListener("mouseout", () => { item.style.background = bgColor; });
+    
     menu.appendChild(item);
   });
 
-  // 画面のサイズを取得
+  // Calculate the best menu location given the viewport
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
-  
-  // メニューのサイズを取得
   const menuWidth = menu.offsetWidth;
   const menuHeight = menu.offsetHeight;
-  
-  // 位置の計算（初期はマウスの位置）
   let menuX = position.x;
   let menuY = position.y;
-  
-  // スクロール位置を考慮
   const scrollX = window.scrollX;
   const scrollY = window.scrollY;
-  
-  // 横方向の調整:
-  // メニューの横幅が画面の幅以下の場合のみ、右端にはみ出すとき左側に表示
+
   if (menuWidth <= viewportWidth && menuX + menuWidth > viewportWidth + scrollX) {
     menuX = menuX - menuWidth;
   }
-  // メニューの横幅が画面の幅より大きい場合は、常に右方向にそのまま表示（menuX = position.x のまま）
-  
-  // 縦方向の調整:
-  // メニューの高さが画面の高さ以下の場合のみ、下端ではみ出すとき上に表示
+
   if (menuHeight <= viewportHeight && menuY + menuHeight > viewportHeight + scrollY) {
     menuY = menuY - menuHeight;
   }
-  // メニューの高さが画面の高さより大きい場合は、常に下方向にそのまま表示（menuY = position.y のまま）
-  
-  // 計算した位置を設定
+
   menu.style.left = menuX + "px";
   menu.style.top = menuY + "px";
 
